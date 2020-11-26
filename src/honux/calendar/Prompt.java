@@ -14,19 +14,19 @@ public class Prompt {
 		int year = 1;
 		String day = "";
 		while (month != -1 && year != -1) {
-			System.out.println("연도를 입력하세요");
+			System.out.println("연도를 입력하세요(exit : -1)");
 			System.out.print(PROMPT);
 			year = scanner.nextInt();
 			if (year == -1) {
 				continue;
 			}
 
-			System.out.println("달을 입력하세요");
+			System.out.println("달을 입력하세요(exit : -1)");
 			System.out.print(PROMPT);
 			month = scanner.nextInt();
 			scanner.nextLine();
 
-			if (month == -1 || month > 12) {
+			if (month == -1 || month > 12 || month < 0) {
 				continue;
 			}
 			System.out.println("첫번째 요일을 입력하세요. (SU, MO, TU, WE, TH, FR, SA)");
