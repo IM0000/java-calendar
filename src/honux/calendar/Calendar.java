@@ -4,10 +4,9 @@ public class Calendar {
 
 	private static final int[] MAXDAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	private static final int[] LEAP_MAXDAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	private static final String[] DAY_OF_THE_WEEK = { "SU", "MO", "TU", "WE", "TH", "FR", "SA" };
 
 	public boolean isLeapYear(int year) {
-		if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+		if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
 			return true;
 		else
 			return false;
@@ -21,29 +20,36 @@ public class Calendar {
 		}
 	}
 
-	public int getDayNum(String day) {
-		int dayIndex = 0;
-		for (int i = 0; i <= 6; i++) {
-			if (day.equalsIgnoreCase(DAY_OF_THE_WEEK[i])) {
-				dayIndex = i;
-				break;
+	public int getNumOfDays(int year, int month) {
+		int numOfDays = 1;
+		int preYear = year - 1;
+		numOfDays = numOfDays + preYear * 365 + (preYear / 4 - preYear / 100 + preYear / 400);
+		if (isLeapYear(year)) {
+			for (int i = 1; i < month; i++) {
+				numOfDays += LEAP_MAXDAYS[i - 1];
+			}
+		} else {
+			for (int i = 1; i < month; i++) {
+				numOfDays += MAXDAYS[i - 1];
 			}
 		}
-		return dayIndex;
+		return numOfDays;
 	}
 
-	public void printCalendar(int year, int month, String day) {
+	public void printCalendar(int year, int month) {
 		System.out.printf("    <<%4d년%3d월>>\n", year, month);
 		System.out.println(" SU MO TU WE TH FR SA");
 		System.out.println("---------------------");
 
+		int numOfDays = getNumOfDays(year, month);
+		int dayIndex = numOfDays % 7;
 		int maxDay = getMaxDaysOfMonth(year, month);
-		for (int i = 0; i < getDayNum(day); i++) {
+		for (int i = 0; i < dayIndex; i++) {
 			System.out.print("   ");
 		}
 		for (int i = 1; i <= maxDay; i++) {
 			System.out.printf("%3d", i);
-			if ((i + getDayNum(day)) % 7 == 0) {
+			if ((i + dayIndex) % 7 == 0) {
 				System.out.println();
 			}
 		}
