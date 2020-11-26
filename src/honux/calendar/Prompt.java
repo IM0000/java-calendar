@@ -13,7 +13,7 @@ public class Prompt {
 		int month = 1;
 		int year = 1;
 		String day = "";
-		while (month != -1) {
+		while (month != -1 && year != -1) {
 			System.out.println("연도를 입력하세요");
 			System.out.print(PROMPT);
 			year = scanner.nextInt();
