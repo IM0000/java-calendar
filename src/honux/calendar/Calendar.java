@@ -20,28 +20,30 @@ public class Calendar {
 			return MAXDAYS[month - 1];
 		}
 	}
+
 	public int getDayNum(String day) {
-		int dayIndex=-1;
-		for(int i=0; i<=6;i++) {
-			if(day.equals(DAY_OF_THE_WEEK[i])) {
+		int dayIndex = 0;
+		for (int i = 0; i <= 6; i++) {
+			if (day.equalsIgnoreCase(DAY_OF_THE_WEEK[i])) {
 				dayIndex = i;
 				break;
 			}
 		}
 		return dayIndex;
 	}
+
 	public void printCalendar(int year, int month, String day) {
 		System.out.printf("    <<%4d년%3d월>>\n", year, month);
 		System.out.println(" SU MO TU WE TH FR SA");
 		System.out.println("---------------------");
 
 		int maxDay = getMaxDaysOfMonth(year, month);
-		for (int i = 0; i<getDayNum(day);i++) {
+		for (int i = 0; i < getDayNum(day); i++) {
 			System.out.print("   ");
 		}
 		for (int i = 1; i <= maxDay; i++) {
 			System.out.printf("%3d", i);
-			if ((i+getDayNum(day)) % 7 == 0) {
+			if ((i + getDayNum(day)) % 7 == 0) {
 				System.out.println();
 			}
 		}
