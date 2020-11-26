@@ -4,7 +4,15 @@ public class Calendar {
 
 	private static final int[] MAXDAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	private static final int[] LEAP_MAXDAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
+	
+	/**
+	 * 
+	 * @param date ex: "2020-11-26"
+	 * @param plan
+	 */
+	public void registerPlan(String strDate, String plan) {
+		
+	}
 	public boolean isLeapYear(int year) {
 		if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
 			return true;
