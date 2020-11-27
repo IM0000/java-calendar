@@ -1,18 +1,37 @@
 package honux.calendar;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+
 public class Calendar {
 
 	private static final int[] MAXDAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	private static final int[] LEAP_MAXDAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	
+	private HashMap<Date, String> planMap = new HashMap<Date, String>();;
+
+//	public Calendar() {
+//		planMap = new HashMap<Date,String>();
+//	}
 	/**
 	 * 
 	 * @param date ex: "2020-11-26"
 	 * @param plan
+	 * @throws ParseException
 	 */
-	public void registerPlan(String strDate, String plan) {
-		
+	public void registerPlan(String strDate, String plan) throws ParseException {
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+		planMap.put(date, plan);
 	}
+
+	public String searchPlan(String strDate) throws ParseException {
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);
+		String plan = planMap.get(date);
+		return plan;
+
+	}
+
 	public boolean isLeapYear(int year) {
 		if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
 			return true;
@@ -63,9 +82,5 @@ public class Calendar {
 		}
 		System.out.println();
 	}
-	/*
-	 * 월을 입력하면 해당월의 달력을 출력한다. 달력은 모양은 1단계에서 작성한 모양으로 만든다. 1일은 일요일로 정해도 무방하다. -1을
-	 * 입력받기 전까지 반복 입력받는다. 프롬프트를 출력한다.
-	 */
 
 }

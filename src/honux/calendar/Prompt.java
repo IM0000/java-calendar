@@ -1,5 +1,6 @@
 package honux.calendar;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class Prompt {
@@ -12,38 +13,42 @@ public class Prompt {
 		System.out.println("| h. 도움말     q. 종료    ");
 		System.out.println("+----------------------+");
 	}
-	
+
 	private final static String PROMPT = "cal> ";
 
 	public void runPrompt() {
 		printMenu();
 		Scanner scanner = new Scanner(System.in);
 		Calendar cal = new Calendar();
-		
-		while(true) {
+
+		while (true) {
 			System.out.println("명령 (1, 2, 3, h, q)");
 			String cmd = scanner.next();
-			if(cmd.equals("1")) cmdRegister();
-			else if (cmd.equals("2")) cmdSearch();
-			else if (cmd.equals("3")) cmdCal(scanner, cal);
-			else if (cmd.equals("h")) printMenu();
-			else if (cmd.equals("q")) break;
+			if (cmd.equals("1"))
+				cmdRegister(scanner, cal);
+			else if (cmd.equals("2"))
+				cmdSearch(scanner, cal);
+			else if (cmd.equals("3"))
+				cmdCal(scanner, cal);
+			else if (cmd.equals("h"))
+				printMenu();
+			else if (cmd.equals("q"))
+				break;
 		}
-				
+
 		System.out.println("Bye~");
 		scanner.close();
 	}
 
 	private void cmdCal(Scanner s, Calendar c) {
-				
+
 		int month = 1;
 		int year = 1;
-		
-		
+
 		System.out.println("연도를 입력하세요.");
 		System.out.print(PROMPT);
 		year = s.nextInt();
-		
+
 		System.out.println("달을 입력하세요.");
 		System.out.print(PROMPT);
 		month = s.nextInt();
@@ -55,17 +60,36 @@ public class Prompt {
 		}
 
 		c.printCalendar(year, month);
-	
+
 	}
 
-	private void cmdSearch() {
-		// TODO Auto-generated method stub
-		
+	private void cmdSearch(Scanner s, Calendar c) {
+		System.out.println("[일정검색] 날짜를 입력해주세요.(yyyy-MM-dd)");
+		String date = s.next();
+		String plan = "일정이 없습니다.";
+		try {
+			plan = c.searchPlan(date);
+		} catch (ParseException e) {
+			System.err.println("일정 검색 중 오류가 발생했습니다.");
+			e.printStackTrace();
+		}
+		System.out.println("일정 : " + plan);
+
 	}
 
-	private void cmdRegister() {
-		// TODO Auto-generated method stub
-		
+	private void cmdRegister(Scanner s, Calendar c) {
+		System.out.println("[일정등록] 날짜를 입력해주세요.(yyyy-MM-dd)");
+		String date = s.next();
+		System.out.println("일정을 입력해주세요.");
+		s.nextLine();
+		String text = s.nextLine();
+		try {
+			c.registerPlan(date, text);
+		} catch (ParseException e) {
+			System.err.println("일정 등록 중 오류가 발생했습니다.");
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void main(String[] args) {
