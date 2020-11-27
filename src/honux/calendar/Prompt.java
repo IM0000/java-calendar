@@ -1,6 +1,5 @@
 package honux.calendar;
 
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class Prompt {
@@ -25,19 +24,19 @@ public class Prompt {
 			System.out.println("명령 (1, 2, 3, h, q)");
 			String cmd = scanner.next();
 			switch (cmd) {
-			case "1" :
+			case "1":
 				cmdRegister(scanner, cal);
 				break;
-			case "2" :
+			case "2":
 				cmdSearch(scanner, cal);
 				break;
-			case "3" :
+			case "3":
 				cmdCal(scanner, cal);
 				break;
-			case "h" :
+			case "h":
 				printMenu();
 				break;
-			case "q" :
+			case "q":
 				isLoop = false;
 				break;
 			}
@@ -72,14 +71,10 @@ public class Prompt {
 	private void cmdSearch(Scanner s, Calendar c) {
 		System.out.println("[일정검색] 날짜를 입력해주세요.(yyyy-MM-dd)");
 		String date = s.next();
-		String plan = "일정이 없습니다.";
-		try {
-			plan = c.searchPlan(date);
-		} catch (ParseException e) {
-			System.err.println("일정 검색 중 오류가 발생했습니다.");
-			e.printStackTrace();
-		}
-		System.out.println("일정 : " + plan);
+		PlanItem plan;
+		plan = c.searchPlan(date);
+
+		System.out.println("일정 : " + plan.detail);
 
 	}
 
@@ -89,12 +84,7 @@ public class Prompt {
 		System.out.println("일정을 입력해주세요.");
 		s.nextLine();
 		String text = s.nextLine();
-		try {
-			c.registerPlan(date, text);
-		} catch (ParseException e) {
-			System.err.println("일정 등록 중 오류가 발생했습니다.");
-			e.printStackTrace();
-		}
+		c.registerPlan(date, text);
 
 	}
 
