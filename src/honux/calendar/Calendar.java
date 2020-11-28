@@ -19,14 +19,14 @@ public class Calendar {
 	public Calendar() {
 		planMap = new HashMap<Date, PlanItem>();
 		File f = new File(SAVE_FILE);
-		if (!f.exists()) {
-			return;
-		}
+//		if (!f.exists()) {
+//			return;
+//		}
 		try {
 			Scanner s = new Scanner(f);
-			while(s.hasNext()) {
+			while (s.hasNext()) {
 				String line = s.nextLine();
-				String[] words=line.split(",");
+				String[] words = line.split(",");
 				String date = words[0];
 				String detail = words[1];
 				PlanItem p = new PlanItem(date, detail);
@@ -41,7 +41,7 @@ public class Calendar {
 	public void registerPlan(String strDate, String plan) {
 		PlanItem p = new PlanItem(strDate, plan);
 		planMap.put(p.getDate(), p);
-		
+
 		File f = new File(SAVE_FILE);
 		String item = p.saveString();
 		try {
